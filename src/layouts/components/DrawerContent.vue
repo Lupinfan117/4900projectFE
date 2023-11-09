@@ -33,12 +33,23 @@ const upgradeBanner = computed(() => {
   </div>
 
   <!-- 👉 Nav items -->
+     <VerticalNavLink
+      :item="{
+        title: 'Home',
+        // to: 'event',
+        icon: { icon: 'mdi-home-outline' }
+      }"
+    />
+
+
+
+
   <ul>
     <VerticalNavLink
       :item="{
         title: 'Dashboard',
         to: 'index',
-        icon: { icon: 'mdi-home-outline' }
+        icon: { icon: 'mdi-plus-circle' }
       }"
     />
     
@@ -50,18 +61,25 @@ const upgradeBanner = computed(() => {
     <!-- ℹ️ This path doesn't exist so 404 route will catch this undefined path -->
     
 
-
-  
-   
-   
     <VerticalNavLink
       :item="{
         title: 'Create Event',
         to: 'event',
-        icon: { icon: 'mdi-form-select' }
+        icon: { icon: 'mdi-calendar-plus' }
+      }"
+    />
+   
+    <VerticalNavLink
+      :item="{
+        title: 'RSVP',
+        // to: 'event',
+        icon: { icon: 'mdi-calendar-check' }
       }"
     />
   </ul>
+
+
+
 
   <!-- 👉 illustration -->
   
