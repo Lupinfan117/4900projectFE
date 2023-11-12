@@ -7,13 +7,13 @@ import {  useRouter } from 'vue-router';
 
 <template>
     <div class="home">
-      <h1>What We Do:</h1>
+      <h1>We can help you:</h1>
       <ul class="homeList">
-        <li>We create event schedules, manages attendees, sending invitations, managing RSVPs</li>
-        <li>We manage vendors such as caterers, florists, photographers, and venues</li>
-        <li>We help event planners keep track of what items they have and where they are located</li>
-        <li>We provide features for budget tracking cost forecasting, and invoice management</li>
-        <li>We provide tools for communicating with event attendees, vendors, and staff</li>
+        <li>Create event schedules, manages attendees, sending invitations, managing RSVPs</li>
+        <li>Manage vendors such as caterers, florists, photographers, and venues</li>
+        <li>Keep track of inventory</li>
+        <li>Budget tracking, cost forecasting, and invoice management</li>
+        <li>Communicate with event attendees, vendors, and staff</li>
       </ul>
       <br><br>
       <div class="image-container">
