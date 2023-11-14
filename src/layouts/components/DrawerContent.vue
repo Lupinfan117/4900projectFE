@@ -39,8 +39,9 @@ const store = useAuthStore();
     <VerticalNavLink
     v-if="store.user.type == 'Guest'"
       :item="{
-        title: 'Dashboard',
-        to: 'guest',
+        title: 'Home',
+        to: 'home',
+
         icon: { icon: 'mdi-home-outline' }
       }"
     />
