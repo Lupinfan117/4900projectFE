@@ -20,16 +20,13 @@ onMounted(() =>{
   <VerticalNavLayout>
     <!-- 👉 navbar -->
     <template #navbar>
-      <!-- <VTextField
-        rounded
-        prepend-inner-icon="mdi-magnify"
-        density="compact"
-        max-width="100px"
-        class="app-bar-search d-none d-sm-block"
-      /> -->
-      <h3>
-        Welcome {{ store.user?.username}}
-      </h3>
+      <div v-if="store.user" class="d-flex  align-center">
+        <h3 class="mr-5">
+          Welcome {{ store.user?.username}}
+        </h3>
+        
+        
+      </div>
 
       <VSpacer />
 

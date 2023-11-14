@@ -10,19 +10,14 @@ const headers = [
   'NAME',
   'Description',
   'Event Date',
-  'No of Guest',
+  'Organizer',
   'Catering',
-  'Status',
-  'Action',
-]
-const rsHeaders = [
-  'NAME',
-  'Email',
   'Invite Status',
+  'Action',
 ]
 const store = useAuthStore();
 onMounted(() =>{
-    store.getEvents()
+    store.getMyInvitations()
 })
 
  
@@ -30,14 +25,10 @@ onMounted(() =>{
 const event = ref('');
 const active = ref(false);
 const isCatering = ref(true);
-const isRsvp = ref(false);
 
-const details = (val) =>{
-  event.value =val
-  store.getEventInvitations(val.id).then(() =>{
-    active.value = true;
-  })
-  
+const details = (id) =>{
+  event.value = id
+  active.value = true;
 }
 
 const formattedDate = (x) => {
@@ -55,26 +46,13 @@ const formattedDate = (x) => {
       return date.toLocaleDateString("en-US", options);
     };
 
-    const Delete = (id) =>{
-      store.Delete(id);
+     const accept = async (id) =>{
+     await store.accept('Accepted',id);
     }
 
-
-    const getStatus = (dateString) => {
-    // Parse the input date string
-    const inputDate = new Date(dateString);
-
-    // Get the current date and time
-    const currentDate = new Date();
-
-    // Compare the input date with the current date
-    if (inputDate > currentDate) {
-        return 'Active';
-    } else {
-        return 'InActive';
+    const reject = async (id) =>{
+     await store.reject('Rejected',id);
     }
-}
-
 
 </script>
 
@@ -82,7 +60,7 @@ const formattedDate = (x) => {
   <VCard>
     <VTable
       :headers="headers"
-      :items="store.events"
+      :items="store.invitations"
       item-key="id"
       class="table-rounded"
       hide-default-footer
@@ -101,31 +79,31 @@ const formattedDate = (x) => {
 
       <tbody>
         <tr
-          v-for="row in store.events"
+          v-for="row in store.invitations"
           :key="row.id"
         >
           <!-- name -->
 
           <td>
             <div class="d-flex flex-column">
-              <span class="d-block font-weight-semibold text--primary text-truncate">{{ row.name }}</span>
+              <span class="d-block font-weight-semibold text--primary text-truncate">{{ row.event.name }}</span>
               <!-- <small>{{ row.post }}</small> -->
             </div>
           </td>
 
-          <td v-text="row.description" />
+          <td v-text="row.event.description" />
           <td  >
             
-            {{row.event_date? formattedDate(row.event_date):''}}
+            {{row.event.event_date? formattedDate(row.event.event_date):''}}
           </td>
-          <td v-text="row.number_of_guests" />
-          <td v-text="row.catering.name" />
+          <td v-text="row.event.user.username" />
+          <td v-text="row.event.catering.name" />
            <td  >
             
-            {{row.event_date? getStatus(row.event_date):''}}
+            {{row.invite_status}}
           </td>
           <!-- status -->
-          
+         
           <td  >
               <VIcon
             size="30"
@@ -140,7 +118,7 @@ const formattedDate = (x) => {
       >
         <VList>
           <!-- 👉 User Avatar & Name -->
-          <VListItem @click="details(row)"  style="cursor: pointer;">
+          <VListItem @click="details(row.event)"  style="cursor: pointer;">
 
             <VListItemTitle  class="font-weight-semibold text-sm">
               View Details
@@ -148,12 +126,22 @@ const formattedDate = (x) => {
           </VListItem>
 
           <VDivider class="my-1" />
-          <VListItem @click="Delete(row.id)" style="cursor: pointer;">
+          <template v-if="row.invite_status == 'Pending'">
 
-            <VListItemTitle  class="font-weight-semibold text-sm text-error">
-              Delete
+          
+          <VListItem @click="accept(row.id)" style="cursor: pointer;">
+
+            <VListItemTitle  class="font-weight-semibold text-sm text-success">
+              Accept Invitation
             </VListItemTitle>
           </VListItem>
+          <VListItem @click="reject(row.id)" style="cursor: pointer;">
+
+            <VListItemTitle  class="font-weight-semibold text-sm text-error">
+              Reject Invitation
+            </VListItemTitle>
+          </VListItem>
+          </template>
           </VList>
           </VMenu>
             
@@ -203,79 +191,7 @@ const formattedDate = (x) => {
            {{event.event_date? formattedDate(event.event_date):''}}
         </VCardText>
 
-       
-
-        <VCardActions>
-          <VBtn  @click="isRsvp = !isRsvp">
-            RSVPS
-                    </VBtn>
-                    
-
-          <VSpacer />
-
-          <VBtn
-            icon
-            size="small"
-            @click="isRsvp = !isRsvp"
-          >
-            <VIcon :icon="isRsvp  ? 'mdi-chevron-up' : 'mdi-chevron-down'" />
-          </VBtn>
-        </VCardActions>
-
-        <VExpandTransition>
-          <div v-show="isRsvp">
-           
-          <VTable
-      :headers="rsHeaders"
-      :items="store.invitations"
-      item-key="id"
-      class="table-rounded"
-      hide-default-footer
-      disable-sort
-    >
-      <thead>
-        <tr>
-          <th
-            v-for="header in rsHeaders"
-            :key="header"
-          >
-            {{ header }}
-          </th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr
-          v-for="row in store.invitations"
-          :key="row.id"
-        >
-          <!-- name -->
-
-          <td>
-            <div class="d-flex flex-column">
-              <span class="d-block font-weight-semibold text--primary text-truncate">{{ row.user.username }}</span>
-              <!-- <small>{{ row.post }}</small> -->
-            </div>
-          </td>
-
-          <td v-text="row.user.email" />
-          
-          <td v-text="row.invite_status" />
-          
-        </tr>
-      </tbody>
-    </VTable>
-
-       
-        
-          </div>
-        </VExpandTransition>
-
-
-
-
-
-
+         
 
         <VCardActions>
           <VBtn  @click="isCatering = !isCatering">

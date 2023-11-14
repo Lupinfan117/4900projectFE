@@ -1,6 +1,7 @@
 <script setup>
 import avatar1 from '@/assets/images/avatars/avatar-1.png'
 import { useAuthStore } from '@/store/auth'
+import { useRouter } from 'vue-router';
 
 const avatarBadgeProps = {
   dot: true,
@@ -11,6 +12,15 @@ const avatarBadgeProps = {
   bordered: true,
 }
 const store = useAuthStore();
+
+const router  = useRouter();
+
+const logout = () =>{
+  localStorage.removeItem('token');
+  localStorage.removeItem('refresh');
+  localStorage.removeItem('type');
+  router.push('/login');
+}
 </script>
 
 <template>
@@ -80,7 +90,7 @@ const store = useAuthStore();
           
 
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem @click="logout">
             <template #prepend>
               <VIcon
                 class="me-2"
