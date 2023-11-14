@@ -4,8 +4,8 @@ import AnalyticsDatatable from '@/views/dashboards/analytics/AnalyticsDatatable.
 import { onMounted } from 'vue'
 import {  useRouter } from 'vue-router';
 const router = useRouter
+const auth  = useAuthStore();
 onMounted(() =>{
-  const auth  = useAuthStore();
   const token = localStorage.getItem('token');
   if(token){
     auth.getUser();
@@ -14,13 +14,31 @@ onMounted(() =>{
     router.push('/login');
   }
 })
+
+const search = (event) =>{
+  auth.search(event.target.value);
+}
 </script>
 
 <template>
   <VRow class="match-height">
-    <h3 class="text-title pl-3 text-primary">
+    <div  class="d-flex align-center">
+
+      <h3 class="text-title pl-3 text-primary mr-5">
         My Events
-    </h3>
+      </h3>
+      <VTextField
+      @input="search"
+        rounded
+        prepend-inner-icon="mdi-magnify"
+        density="compact"
+        max-width="100px"
+        clearable
+        @click:clear="search"
+        placeholder="Search"
+        class="app-bar-search d-none d-sm-block"
+        />
+    </div>
 
     <VCol cols="12">
       <AnalyticsDatatable />

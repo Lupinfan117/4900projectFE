@@ -2,6 +2,7 @@
 import upgradeBannerDark from '@/assets/images/pro/upgrade-banner-dark.png'
 import upgradeBannerLight from '@/assets/images/pro/upgrade-banner-light.png'
 import logo from '@/assets/logo.svg?raw'
+import { useAuthStore } from '@/store/auth'
 import {
   VerticalNavLink,
   VerticalNavSectionTitle,
@@ -12,6 +13,7 @@ const vuetifyTheme = useTheme()
 const upgradeBanner = computed(() => {
   return vuetifyTheme.global.name.value === 'light' ? upgradeBannerLight : upgradeBannerDark
 })
+const store = useAuthStore();
 </script>
 
 <template>
@@ -33,53 +35,34 @@ const upgradeBanner = computed(() => {
   </div>
 
   <!-- 👉 Nav items -->
-     <VerticalNavLink
+  <ul v-if="store.user">
+    <VerticalNavLink
+    v-if="store.user.type == 'Guest'"
       :item="{
         title: 'Home',
         to: 'home',
+
         icon: { icon: 'mdi-home-outline' }
       }"
     />
+    <template v-else>
 
-
-
-
-  <ul>
-    <VerticalNavLink
+      <VerticalNavLink
       :item="{
         title: 'Dashboard',
         to: 'index',
-        icon: { icon: 'mdi-plus-circle' }
+        icon: { icon: 'mdi-home-outline' }
       }"
     />
-    
-    <!-- 👉 Pages -->
-    <!-- <VerticalNavSectionTitle :item="{ heading: 'Pages' }" /> -->
-    
-   
-
-    <!-- ℹ️ This path doesn't exist so 404 route will catch this undefined path -->
-    
-
     <VerticalNavLink
-      :item="{
-        title: 'Create Event',
-        to: 'event',
-        icon: { icon: 'mdi-calendar-plus' }
-      }"
+    :item="{
+      title: 'Create Event',
+      to: 'event',
+      icon: { icon: 'mdi-form-select' }
+    }"
     />
-   
-    <VerticalNavLink
-      :item="{
-        title: 'RSVP',
-        // to: 'event',
-        icon: { icon: 'mdi-calendar-check' }
-      }"
-    />
+  </template>
   </ul>
-
-
-
 
   <!-- 👉 illustration -->
   

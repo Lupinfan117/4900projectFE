@@ -10,6 +10,7 @@ const rsvp = ref(null)
 const event_date = ref(null)
 const no_of_guests = ref(0)
 const catering = ref(null)
+const image = ref([])
 
 
 
@@ -28,13 +29,23 @@ const save = () =>{
     number_of_guests:no_of_guests.value,
     catering:catering.value,
     event_date:event_date.value,
-    rsvp:[rsvp.value],
+    rsvp:rsvp.value,
     user:store.user.id,
   }
 
-  store.saveEvent(data);
+  // const form = new FormData();
+  // form.append('name',name.value);
+  // form.append('description',description.value);
+  // form.append('number_of_guests',no_of_guests.value);
+  // form.append('catering',catering.value);
+  // form.append('event_date',event_date.value);
+  // form.append('rsvp',rsvp.value);
+  // form.append('user',store.user.id);
+  // form.append('image',);
 
-  console.log(data);
+
+  store.saveEvent(data,image.value[0]);
+
 }
 </script>
 
@@ -92,24 +103,28 @@ const save = () =>{
         v-if="store.catering"
           v-model="catering"
           label="Catering"
-          item-title="name"
           item-value="id"
+          item-title="name"
           :items="store.catering"
           placeholder="Catering"
-        />
+          />
       </VCol>
 
       <VCol cols="6">
         
-        <VSelect
+        <v-autocomplete
           v-model="rsvp"
           label="RSVP"
+          multiple
           v-if="store.users"
           item-title="username"
           item-value="id"
-          :items="store.users"
-          placeholder="Rsvp"
+          :items="store.guests"
         />
+      </VCol>
+      <VCol cols="6">
+        
+        <v-file-input v-model="image" accept="image/*"  label="Add Image"></v-file-input>
       </VCol>
 
       

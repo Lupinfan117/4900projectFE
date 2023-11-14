@@ -17,6 +17,7 @@ const form = ref({
   first_name:'',
   last_name:'',
   password2:'',
+  type:'',
 })
 const vuetifyTheme = useTheme()
 const authThemeMask = computed(() => {
@@ -29,6 +30,8 @@ const  signup = async () =>{
   await store.signup(form.value);
   
 }
+
+const types =  ['Event Planner','Guest']
 </script>
 
 <template>
@@ -102,6 +105,8 @@ const  signup = async () =>{
             </VCol>
 
             <VCol cols="12">
+            
+              
               <VTextField
                 v-model="form.password2"
                 label="Password"
@@ -109,6 +114,15 @@ const  signup = async () =>{
                 :append-inner-icon="isPasswordVisible2 ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
                 @click:append-inner="isPasswordVisible2 = !isPasswordVisible2"
               />
+            </VCol>
+
+            <VCol cols="12">
+              <VSelect
+          v-model="form.type"
+          label="Type"
+          :items="types"
+          placeholder="Type"
+        />
               <div class="d-flex align-center mt-1 mb-4">
                
              
