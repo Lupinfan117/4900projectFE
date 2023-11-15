@@ -258,21 +258,6 @@
     "watchThrottled": true,
     "watchTriggerable": true,
     "watchWithFilter": true,
-    "whenever": true,
-    "Component": true,
-    "ComponentPublicInstance": true,
-    "ComputedRef": true,
-    "ExtractDefaultPropTypes": true,
-    "ExtractPropTypes": true,
-    "ExtractPublicPropTypes": true,
-    "InjectionKey": true,
-    "PropType": true,
-    "Ref": true,
-    "VNode": true,
-    "WritableComputedRef": true,
-    "onBeforeRouteLeave": true,
-    "onBeforeRouteUpdate": true,
-    "toValue": true,
-    "useLink": true
+    "whenever": true
   }
 }

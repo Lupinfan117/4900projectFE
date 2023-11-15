@@ -31,12 +31,15 @@ import {  useRouter } from 'vue-router';
     </div>
   </template>
 
-  <script>
-  export default {
-    name: 'HomePage'
-    // You can add more logic here if needed
-  }
-  </script>
+<script>
+export default {
+  name: 'HomePage', 
+
+  // You can add more logic here if needed
+}
+
+  /* Home page */
+</script>
 
   <style>
   .home {
