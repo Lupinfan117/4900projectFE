@@ -36,15 +36,33 @@ const store = useAuthStore();
 
   <!-- 👉 Nav items -->
   <ul v-if="store.user">
-    <VerticalNavLink
-    v-if="store.user.type == 'Guest'"
+    <template v-if="store.user.type == 'Guest'">
+      <VerticalNavLink
+    
       :item="{
-        title: 'Home',
-        to: 'home',
-
+        title: 'Dashboard',
+        to: 'guest-event',
         icon: { icon: 'mdi-home-outline' }
       }"
     />
+     <VerticalNavLink
+    
+      :item="{
+        title: 'Invitations',
+        to: 'guest',
+        icon: { icon: 'mdi-home-outline' }
+      }"
+    />
+    <VerticalNavLink
+    
+      :item="{
+        title: 'Booked Events',
+        to: 'book',
+        icon: { icon: 'mdi-home-outline' }
+      }"
+    />
+    </template>
+    
     <template v-else>
 
       <VerticalNavLink
@@ -58,6 +76,20 @@ const store = useAuthStore();
     :item="{
       title: 'Create Event',
       to: 'event',
+      icon: { icon: 'mdi-form-select' }
+    }"
+    />
+    <VerticalNavLink
+    :item="{
+      title: 'Manage Rsvps',
+      to: 'rsvp',
+      icon: { icon: 'mdi-form-select' }
+    }"
+    />
+    <VerticalNavLink
+    :item="{
+      title: 'Testimonials',
+      to: 'testimonials',
       icon: { icon: 'mdi-form-select' }
     }"
     />

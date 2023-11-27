@@ -454,38 +454,33 @@
   dependencies:
     "@iconify/types" "*"
 
-
-"@iconify/tools@^3.0.6":
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/@iconify/tools/-/tools-3.0.6.tgz#af9e4e2520d276eb100721dcd5528b2946faad42"
-  integrity sha512-RIYgZ7YOjcogLxtvdmshcTc80f08yi6FxFGk7ahE5NUOx7hp8mjFJPUSxX6pjhZDDXUvVV4ao9EtdRFLgK+4ow==
+"@iconify/tools@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@iconify/tools/-/tools-2.1.0.tgz#af377cfbbebdeff22b8b8be6646a50d34b3da3aa"
+  integrity sha512-tt5fSzBb88iEPFzUE5G875WP9ACdemJgsu5y0kh55JT7g6IrJc7GjG9QdblC2UfKuHxPQo0aaPFZcJmePxFjNg==
   dependencies:
-    "@iconify/types" "^2.0.0"
-    "@iconify/utils" "^2.1.10"
-    "@types/cheerio" "^0.22.32"
+    "@iconify/utils" "^2.0.0"
+    "@types/cheerio" "^0.22.30"
     "@types/node-fetch" "^2.5.12"
     "@types/svgo" "^2.6.0"
-    "@types/tar" "^6.1.6"
-    cheerio "^1.0.0-rc.12"
+    "@types/tar" "^6.1.0"
+    cheerio "^1.0.0-rc.10"
     extract-zip "^2.0.1"
-    local-pkg "^0.4.3"
+    local-pkg "^0.4.2"
     node-fetch "^2.6.7"
-    pathe "^1.1.1"
-    svgo "^3.0.2"
-    tar "^6.2.0"
-
+    pathe "^0.3.7"
+    svgo "^2.8.0"
+    tar "^6.1.11"
 
 "@iconify/types@*", "@iconify/types@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@iconify/types/-/types-2.0.0.tgz#ab0e9ea681d6c8a1214f30cd741fe3a20cc57f57"
   integrity sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==
 
-
-"@iconify/utils@^2.1.10":
-  version "2.1.11"
-  resolved "https://registry.yarnpkg.com/@iconify/utils/-/utils-2.1.11.tgz#15cf9e15dfeb8e6dd79181dc3994dc1115d042e5"
-  integrity sha512-M/w3PkN8zQYXi8N6qK/KhnYMfEbbb6Sk8RZVn8g+Pmmu5ybw177RpsaGwpziyHeUsu4etrexYSWq3rwnIqzYCg==
-
+"@iconify/utils@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@iconify/utils/-/utils-2.0.1.tgz#bbd29368e0a269f29abc920e375ba84e23ec3a36"
+  integrity sha512-t8IyICk25wgZL4YKn/2kYfjG5MGA6EWZlaUJZ1OEIku4V+kX9V900T5E4HIqS3hLyD6/RJET0zY4vxO9pHLHHw==
   dependencies:
     "@antfu/install-pkg" "^0.1.0"
     "@antfu/utils" "^0.5.2"
@@ -652,12 +647,10 @@
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
 
-
-"@types/cheerio@^0.22.32":
-  version "0.22.34"
-  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.34.tgz#a2becca3fff0b33697a0e8db20b77d0f8b65894f"
-  integrity sha512-uoi5gQGpH5vdNrGOexnNm+19YZLdIRMF/IW8V6w1kIeoXaO1m2mVUMV4dl76tvRRKoIp9d/Z97ZYeIE4lacEsA==
-
+"@types/cheerio@^0.22.30":
+  version "0.22.31"
+  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.31.tgz#b8538100653d6bb1b08a1e46dec75b4f2a5d5eb6"
+  integrity sha512-Kt7Cdjjdi2XWSfrZ53v4Of0wG3ZcmaegFXjMmz9tfNrZSkzzo36G0AL1YqSdcIA78Etjt6E609pt5h1xnQkPUw==
   dependencies:
     "@types/node" "*"
 
@@ -723,7 +716,6 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.5.tgz#75a2a8e7d8ab4b230414505d92335d1dcb53a6df"
   integrity sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==
 
-
 "@types/svgo@^2.6.0":
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/@types/svgo/-/svgo-2.6.4.tgz#b7298fc1dd687539fd63fc818b00146d96e68836"
@@ -731,12 +723,10 @@
   dependencies:
     "@types/node" "*"
 
-
-"@types/tar@^6.1.6":
-  version "6.1.9"
-  resolved "https://registry.yarnpkg.com/@types/tar/-/tar-6.1.9.tgz#1f8f7033494224e61b97895070fafcdd6ec370f3"
-  integrity sha512-T3+O+OQd9cdGmOXuKQY9+B0ceZHRlGVPQ7M5QZqkaPyP/vWnxPXM2aCegq8GP/n1n9dBfq2EBUqCSKKjQAVOPA==
-
+"@types/tar@^6.1.0":
+  version "6.1.3"
+  resolved "https://registry.yarnpkg.com/@types/tar/-/tar-6.1.3.tgz#46a2ce7617950c4852dfd7e9cd41aa8161b9d750"
+  integrity sha512-YzDOr5kdAeqS8dcO6NTTHTMJ44MUCBDoLEIyPtwEn7PssKqUYL49R1iCVJPeiPzPlKi6DbH33eZkpeJ27e4vHg==
   dependencies:
     "@types/node" "*"
     minipass "^3.3.5"
@@ -4928,12 +4918,10 @@ table@^6.8.0:
     string-width "^4.2.3"
     strip-ansi "^6.0.1"
 
-
-tar@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.2.0.tgz#b14ce49a79cb1cd23bc9b016302dea5474493f73"
-  integrity sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==
-
+tar@^6.1.11:
+  version "6.1.11"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.11.tgz#6760a38f003afa1b2ffd0ffe9e9abbd0eab3d621"
+  integrity sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
