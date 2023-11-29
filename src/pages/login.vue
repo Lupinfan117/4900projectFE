@@ -1,6 +1,6 @@
 <script setup>
 import { useTheme } from 'vuetify'
-import logo from '@/assets/logo.svg?raw'
+import logo from '@/assets/logo.png'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
@@ -34,14 +34,9 @@ const login = async () =>{
     >
       <VCardItem class="justify-center">
         <template #prepend>
-          <div class="d-flex">
-            <div v-html="logo" />
-          </div>
+           <img :src="logo" width="300" height="150" />
         </template>
 
-        <VCardTitle class="font-weight-semibold text-2xl text-uppercase">
-          Party Pro
-        </VCardTitle>
       </VCardItem>
 
       <VCardText class="pt-2">
@@ -78,21 +73,6 @@ const login = async () =>{
 
               </div>
 
-              <!-- remember me checkbox -->
-              <!-- <div class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4">
-                <VCheckbox
-                  v-model="form.remember"
-                  label="Remember me"
-                />
-
-                <a
-                  class="ms-2 mb-1"
-                  href="javascript:void(0)"
-                >
-                  Forgot Password?
-                </a>
-              </div> -->
-
               <!-- login button -->
               <VBtn
                 block
@@ -101,7 +81,7 @@ const login = async () =>{
                 Login
               </VBtn>
             </VCol>
-
+            
             <!-- create account -->
             <VCol
               cols="12"
@@ -113,10 +93,9 @@ const login = async () =>{
                 :to="{ name: 'register' }"
               >
                 Create an account
-              </RouterLink>
+              </RouterLink> 
             </VCol>
-            
-           
+
             <VCol
               cols="12"
               class="text-center text-base"
@@ -124,9 +103,9 @@ const login = async () =>{
               <span>Trouble remembering password?</span>
               <RouterLink
                 class="text-primary ms-2"
-                :to="{ name: 'forgot' }"
+                :to="{ name: 'forget' }"
               >
-              Forgot Password
+              Forgot Password?
               </RouterLink>
             </VCol>
 

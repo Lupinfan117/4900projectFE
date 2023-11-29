@@ -47,6 +47,32 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function forget(email) {
+
+    try {
+      const res = await axios.post('/forget', { email: email});
+      showSnack('A link was sent to your email', 'success');
+      router.push('/login')
+
+    }
+    catch (err) {
+      showSnack(err, 'error');
+    }
+  }
+
+  async function reset(code,password,uid) {
+
+    try {
+      const res = await axios.post(`reset/${uid}/`, { code: code,password:password });
+      showSnack('Password Reset successfully', 'success');
+      router.push('/login')
+
+    }
+    catch (err) {
+      showSnack(err, 'error');
+    }
+  }
+
   function showSnack(val1,val2){
     text.value = val1;
     color.value = val2;
@@ -333,5 +359,5 @@ export const useAuthStore = defineStore('auth', () => {
 
   }
 
-  return { state, guests, editEvent, sEvent, getEvent, invite, testimonials, getTestimonials, addFeedBack, book, cancel, getAllEvents, search,accept,reject, invitations,getMyInvitations,getEventInvitations, login, isLoggedIn, signup, Delete ,getUser,snackbar,text,color,showSnack,getEvents,events,user,getUsers,getCatering,users,catering,saveEvent}
+  return { state, guests, reset, forget, editEvent, sEvent, getEvent, invite, testimonials, getTestimonials, addFeedBack, book, cancel, getAllEvents, search,accept,reject, invitations,getMyInvitations,getEventInvitations, login, isLoggedIn, signup, Delete ,getUser,snackbar,text,color,showSnack,getEvents,events,user,getUsers,getCatering,users,catering,saveEvent}
 })

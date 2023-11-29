@@ -1,6 +1,6 @@
 <script setup>
 import { useTheme } from 'vuetify'
-import logo from '@/assets/logo.svg?raw'
+import logo from '@/assets/logo.png'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
@@ -42,14 +42,9 @@ const types =  ['Event Planner','Guest']
     >
       <VCardItem class="justify-center">
         <template #prepend>
-          <div class="d-flex">
-            <div v-html="logo" />
-          </div>
+           <img :src="logo" width="300" height="150" />
         </template>
 
-        <VCardTitle class="font-weight-semibold text-2xl text-uppercase">
-          Party Pro
-        </VCardTitle>
       </VCardItem>
 
       <VCardText class="pt-2">
