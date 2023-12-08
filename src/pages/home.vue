@@ -7,13 +7,13 @@ import {  useRouter } from 'vue-router';
 
 <template>
     <div class="home">
-      <h1>What We Do:</h1>
+      <h1>What We Can Offer:</h1>
       <ul class="homeList">
-        <li>We create event schedules, manages attendees, sending invitations, managing RSVPs</li>
-        <li>We manage vendors such as caterers, florists, photographers, and venues</li>
-        <li>We help event planners keep track of what items they have and where they are located</li>
-        <li>We provide features for budget tracking cost forecasting, and invoice management</li>
-        <li>We provide tools for communicating with event attendees, vendors, and staff</li>
+        <li>Create event schedules, manages attendees, sending invitations, managing RSVPs</li>
+        <li>Manage vendors such as caterers, florists, photographers, and venues</li>
+        <li>Help event planners keep track of what items they have and where they are located</li>
+        <li>Provide features for budget tracking cost forecasting, and invoice management</li>
+        <li>Provide tools for communicating with event attendees, vendors, and staff</li>
       </ul>
       <br><br>
       <div class="image-container">
@@ -23,23 +23,23 @@ import {  useRouter } from 'vue-router';
       </div>
       <br><br>
       <h2>Testimonials</h2>
-        <ul class="homeList">
-            <li>"This event management application has made organizing my events a breeze. I can easily create and manage multiple events, and keep track of all my upcoming events in one place."</li>
-            <li>"As a participant, I love how easy it is to browse through a list of events, view event details, and RSVP to events I plan to attend. It's made attending events a hassle-free experience."</li>
-            <li>"As a vendor, I've been able to showcase my products and services to a wider audience through this event management application. It's been a great platform to connect with event organizers and participants."</li>
-            <li>"The communication features in this event management application have been a game-changer for me as an event organizer. I can easily send invitations and notifications to participants, and collaborate with other organizers, vendors, or sponsors involved in the event."</li>
-            <li>"As a participant, I appreciate the RSVP feature in this event management application. It's made it easy for me to let event organizers know if I plan to attend, and has helped them make necessary arrangements accordingly."</li>
-            <li>"The collaboration and communication features in this event management application have made event planning a seamless experience. I can easily coordinate with other organizers, vendors, or sponsors involved in the event, and ensure successful event planning."</li>
-        </ul>
+      <div class="image-container">
+        <img src="@/assets/images/testimonials/test1.png"   style="width: 30%;" >
+        <img src="@/assets/images/testimonials/test2.png"   style="width: 30%;" >
+        <img src="@/assets/images/testimonials/test3.png"   style="width: 30%;" >
+      </div>
     </div>
   </template>
 
-  <script>
-  export default {
-    name: 'HomePage'
-    // You can add more logic here if needed
-  }
-  </script>
+<script>
+export default {
+  name: 'HomePage', 
+
+  // You can add more logic here if needed
+}
+
+  /* Home page */
+</script>
 
   <style>
   .home {
