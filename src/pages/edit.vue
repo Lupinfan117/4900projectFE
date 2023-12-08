@@ -20,14 +20,28 @@ const store = useAuthStore();
 onMounted(() =>{
   store.getCatering();
   store.getUsers();
+  getData();
+  
 })
+
+const getData =  async () =>{
+    const {data} = await store.getEvent();
+    console.log("dddd",data);
+    name.value = data.name;
+    description.value = data.description;
+    event_date.value = data.event_date;
+    no_of_guests.value = data.number_of_guests
+    catering.value = data.catering;
+
+
+}
 
 const save = () =>{
   const data = {
     name:name.value,
     description:description.value,
     number_of_guests:no_of_guests.value,
-    catering:catering.value,
+    catering:catering.value.id,
     event_date:event_date.value,
     user:store.user.id,
   }
@@ -43,7 +57,7 @@ const save = () =>{
   // form.append('image',);
 
 
-  store.saveEvent(data,image.value[0]);
+  store.editEvent(data);
 
 }
 </script>

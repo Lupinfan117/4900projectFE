@@ -1,7 +1,7 @@
 <script setup>
 import upgradeBannerDark from '@/assets/images/pro/upgrade-banner-dark.png'
 import upgradeBannerLight from '@/assets/images/pro/upgrade-banner-light.png'
-import logo from '@/assets/logo.svg?raw'
+import logo from '@/assets/logo.png'
 import { useAuthStore } from '@/store/auth'
 import {
   VerticalNavLink,
@@ -24,27 +24,40 @@ const store = useAuthStore();
       class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
     >
       <!-- ℹ️ You can also use img tag or VImg here -->
-      <div v-html="logo" />
+       <img :src="logo" width="200" height="120" />
 
-      <Transition name="vertical-nav-app-title">
-        <h1 class="font-weight-semibold leading-normal text-xl text-uppercase">
-          Party Pro
-        </h1>
-      </Transition>
     </RouterLink>
   </div>
 
   <!-- 👉 Nav items -->
   <ul v-if="store.user">
-    <VerticalNavLink
-    v-if="store.user.type == 'Guest'"
+    <template v-if="store.user.type == 'Guest'">
+      <VerticalNavLink
+    
       :item="{
-        title: 'Home',
-        to: 'home',
-
+        title: 'Dashboard',
+        to: 'guest-event',
         icon: { icon: 'mdi-home-outline' }
       }"
     />
+     <VerticalNavLink
+    
+      :item="{
+        title: 'Invitations',
+        to: 'guest',
+        icon: { icon: 'mdi-home-outline' }
+      }"
+    />
+    <VerticalNavLink
+    
+      :item="{
+        title: 'Booked Events',
+        to: 'book',
+        icon: { icon: 'mdi-home-outline' }
+      }"
+    />
+    </template>
+    
     <template v-else>
 
       <VerticalNavLink
@@ -58,6 +71,20 @@ const store = useAuthStore();
     :item="{
       title: 'Create Event',
       to: 'event',
+      icon: { icon: 'mdi-form-select' }
+    }"
+    />
+    <VerticalNavLink
+    :item="{
+      title: 'Manage Rsvps',
+      to: 'rsvp',
+      icon: { icon: 'mdi-form-select' }
+    }"
+    />
+    <VerticalNavLink
+    :item="{
+      title: 'Testimonials',
+      to: 'testimonials',
       icon: { icon: 'mdi-form-select' }
     }"
     />

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { API_URL } from '@/@layouts/utils'
 
 import { useAuthStore } from '@/store/auth'
@@ -10,29 +10,19 @@ const headers = ['NAME', 'Description', 'Event Date', 'No of Guest', 'Catering',
 const rsHeaders = ['NAME', 'Email', 'Invite Status']
 const store = useAuthStore()
 onMounted(() => {
-  store.getUsers()
-  store.getEvents()
+  store.getAllEvents()
 })
 
 const event = ref('')
 const active = ref(false)
 const isCatering = ref(true)
 const isRsvp = ref(false)
-const isInvite = ref(false)
-const isTestimonial = ref(false);
-const guests = ref([]);
-const selectedId = ref(null)
 
 const details = val => {
   event.value = val
   store.getEventInvitations(val.id).then(() => {
     active.value = true
   })
-}
-
-const openInvite = id =>{
-  selectedId.val=id
-  isInvite.value=true;
 }
 
 const formattedDate = x => {
@@ -50,30 +40,8 @@ const formattedDate = x => {
   return date.toLocaleDateString('en-US', options)
 }
 
-// const selectedUsers = computed(() => )
-
-const Delete = id => {
-  store.Delete(id)
-}
-
-const testimonial = async id => {
-  await store.getTestimonials(id);
-  isTestimonial.value=true;
-
-
-}
-
-const invite = async () => {
-  await store.invite(guests.value,selectedId.val);
-  isInvite.value=false;
-
-
-}
-const edit = (id) => {
-  store.sEvent = id;
-  router.push('/edit')
-
-
+const book = id => {
+  store.book(id)
 }
 
 const getStatus = dateString => {
@@ -158,23 +126,13 @@ const getStatus = dateString => {
                 >
                   <VListItemTitle class="font-weight-semibold text-sm"> View Details </VListItemTitle>
                 </VListItem>
-                <VListItem
-                  @click="edit(row.id)"
-                  style="cursor: pointer"
-                >
-                  <VListItemTitle class="font-weight-semibold text-sm"> Edit </VListItemTitle>
-                </VListItem>
-
-               
-
-                
 
                 <VDivider class="my-1" />
                 <VListItem
-                  @click="Delete(row.id)"
+                  @click="book(row.id)"
                   style="cursor: pointer"
                 >
-                  <VListItemTitle class="font-weight-semibold text-sm text-error"> Delete </VListItemTitle>
+                  <VListItemTitle class="font-weight-semibold text-sm text-success"> Book Event </VListItemTitle>
                 </VListItem>
               </VList>
             </VMenu>
@@ -182,79 +140,6 @@ const getStatus = dateString => {
         </tr>
       </tbody>
     </VTable>
-    <v-dialog v-model="isInvite" width="500">
-
-    <v-card title="Send Invite">
-      <div class="pb-3 px-5">
-        
-      <v-autocomplete
-          v-model="guests"
-          label="RSVP"
-          multiple
-          v-if="store.users"
-          item-title="username"
-          item-value="id"
-          :items="store.guests"
-        />
-        <template v-if="guests.length>0">
-          <div class="mt-3">Selected Guests</div>
-          <div class="d-flex items-center">
-            <v-chip class="mt-3 ml-3" v-for="(item,idx) in store.guests.filter(x => guests.includes(x.id))" :key="idx">{{ item.username }}</v-chip>
-          </div>
-        </template>
-        </div>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-
-        <VBtn
-          
-          @click="invite()"
-        >
-          Send Invite
-        </VBtn>
-        <VBtn
-          color="secondary"
-          type="reset"
-          variant="tonal"
-          @click="isInvite=false;guests=[]"
-        >
-          Close
-        </VBtn>
-      </v-card-actions>
-    </v-card>
-  
-</v-dialog>
-    <v-dialog v-model="isTestimonial" width="500">
-  
-
-
-    <v-card title="Testimonials">
-      <template v-if="store.testimonials">
-
-        <v-card-text  v-for="(item,idx) in store.testimonials" :key="idx" class="mb-5 mx-5 pa-2" style="border: 1px solid gray;border-radius: 8px;">
-          <div style="font-weight: bold;">{{ item.user.username }}</div>
-          <div class="text-sm">{{item.content}}</div>
-          <div class="text-sm">Data {{ formattedDate(item.created_at) }}</div>
-        </v-card-text>
-      </template>
-      <div v-else class="mx-5">No Testimonials</div>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-
-       
-        <VBtn
-          color="secondary"
-          type="reset"
-          variant="tonal"
-          @click="isTestimonial=false"
-        >
-          Close
-        </VBtn>
-      </v-card-actions>
-    </v-card>
-  
-</v-dialog>
     <v-dialog
       v-model="active"
       width="500"
@@ -304,65 +189,7 @@ const getStatus = dateString => {
                 {{ event.event_date ? formattedDate(event.event_date) : '' }}
               </VCardText>
 
-              <VCardActions>
-                <VBtn @click="isRsvp = !isRsvp"> RSVPS </VBtn>
-
-                <VSpacer />
-
-                <VBtn
-                  icon
-                  size="small"
-                  @click="isRsvp = !isRsvp"
-                >
-                  <VIcon :icon="isRsvp ? 'mdi-chevron-up' : 'mdi-chevron-down'" />
-                </VBtn>
-              </VCardActions>
-
-              <VExpandTransition>
-                <div v-show="isRsvp">
-                  <VTable
-                    :headers="rsHeaders"
-                    :items="store.invitations"
-                    item-key="id"
-                    class="table-rounded"
-                    hide-default-footer
-                    disable-sort
-                  >
-                    <thead>
-                      <tr>
-                        <th
-                          v-for="header in rsHeaders"
-                          :key="header"
-                        >
-                          {{ header }}
-                        </th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <tr
-                        v-for="row in store.invitations"
-                        :key="row.id"
-                      >
-                        <!-- name -->
-
-                        <td>
-                          <div class="d-flex flex-column">
-                            <span class="d-block font-weight-semibold text--primary text-truncate">{{
-                              row.user.username
-                            }}</span>
-                            <!-- <small>{{ row.post }}</small> -->
-                          </div>
-                        </td>
-
-                        <td v-text="row.user.email" />
-
-                        <td v-text="row.invite_status" />
-                      </tr>
-                    </tbody>
-                  </VTable>
-                </div>
-              </VExpandTransition>
+              
 
               <VCardActions>
                 <VBtn @click="isCatering = !isCatering"> Catering </VBtn>

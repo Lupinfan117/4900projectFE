@@ -21,8 +21,8 @@ const authThemeMask = computed(() => {
 })
 const isPasswordVisible = ref(false)
 
-const login = async () =>{
-  await auth.login(form.value.email,form.value.password);
+const forget = async () =>{
+  await auth.forget(form.value.email);
 }
 </script>
 
@@ -32,7 +32,7 @@ const login = async () =>{
       class="auth-card pa-4 pt-7"
       max-width="448"
     >
-      <VCardItem class="justify-center">
+    <VCardItem class="justify-center">
         <template #prepend>
            <img :src="logo" width="300" height="150" />
         </template>
@@ -41,47 +41,51 @@ const login = async () =>{
 
       <VCardText class="pt-2">
         <h5 class="text-h5 font-weight-semibold mb-1">
-          Welcome to Party Pro! 👋🏻
+          Forgot your password? No worries
         </h5>
         <p class="mb-0">
-          Please sign-in to your account and start the adventure
+          Please enter your email to reset your password.
         </p>
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="login">
+        <VForm @submit.prevent="forget">
           <VRow>
             <!-- email -->
             <VCol cols="12">
               <VTextField
                 v-model="form.email"
-                label="Username"
+                label="email"
                 type="text"
               />
-            </VCol>
-
-            <!-- password -->
-            <VCol cols="12">
-              <VTextField
-                v-model="form.password"
-                label="Password"
-                :type="isPasswordVisible ? 'text' : 'password'"
-                :append-inner-icon="isPasswordVisible ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
-                @click:append-inner="isPasswordVisible = !isPasswordVisible"
-              />
-              <div class="mb-4">
-
-              </div>
-
-              <!-- login button -->
               <VBtn
                 block
                 type="submit"
+                class="mt-4"
               >
-                Login
+                Submit              
               </VBtn>
             </VCol>
+
+            <!-- password -->
             
+            <!-- login instead -->
+            <VCol
+              cols="12"
+              class="text-center text-base"
+            >
+              <span>Remember your password?</span>
+              <RouterLink
+                class="text-primary ms-2"
+                to="login"
+              >
+                Sign in instead
+              </RouterLink>
+            </VCol>
+
+
+
+
             <!-- create account -->
             <VCol
               cols="12"
@@ -93,24 +97,8 @@ const login = async () =>{
                 :to="{ name: 'register' }"
               >
                 Create an account
-              </RouterLink> 
-            </VCol>
-
-            <VCol
-              cols="12"
-              class="text-center text-base"
-            >
-              <span>Trouble remembering password?</span>
-              <RouterLink
-                class="text-primary ms-2"
-                :to="{ name: 'forget' }"
-              >
-              Forgot Password?
               </RouterLink>
             </VCol>
-
-
-
           </VRow>
         </VForm>
       </VCardText>

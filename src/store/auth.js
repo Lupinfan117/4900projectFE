@@ -11,7 +11,10 @@ export const useAuthStore = defineStore('auth', () => {
    const text = ref(null);
    const color = ref(null);
 
+   const sEvent = ref(null);
+
    const events = ref(null);
+   const testimonials = ref(null);
    const invitations = ref(null);
 
    const router = useRouter();
@@ -41,6 +44,32 @@ export const useAuthStore = defineStore('auth', () => {
     catch (err) {
       console.log(err)
       showSnack(err,'error');
+    }
+  }
+
+  async function forget(email) {
+
+    try {
+      const res = await axios.post('/forget', { email: email});
+      showSnack('A link was sent to your email', 'success');
+      router.push('/login')
+
+    }
+    catch (err) {
+      showSnack(err, 'error');
+    }
+  }
+
+  async function reset(code,password,uid) {
+
+    try {
+      const res = await axios.post(`reset/${uid}/`, { code: code,password:password });
+      showSnack('Password Reset successfully', 'success');
+      router.push('/login')
+
+    }
+    catch (err) {
+      showSnack(err, 'error');
     }
   }
 
@@ -90,6 +119,30 @@ export const useAuthStore = defineStore('auth', () => {
     }
   };
 
+  async function getAllEvents() {
+    try {
+
+      const res = await axios.get('/all-events');
+      events.value = res.data.data;
+      console.log(events.value);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+
+  async function getTestimonials(id) {
+    try {
+
+      const res = await axios.get(`/feedback/${id}/`);
+      testimonials.value = res.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
 
    async function getEvents(){
     try{
@@ -102,6 +155,17 @@ export const useAuthStore = defineStore('auth', () => {
       console.log(err);
     }
    }
+
+  async function getEvent() {
+    try {
+
+      const res = await axios.get(`/event/${sEvent.value}/`);
+      return res.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   async function getMyInvitations() {
     try {
@@ -129,6 +193,34 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  async function invite(users, id) {
+    try {
+      const data = {
+        users: users
+      }
+      const res = await axios.post(`/invites/${id}/`, data);
+      showSnack('Invitation successfully sent', 'success');
+      await getMyInvitations()
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function book(id) {
+    try {
+      const data = {
+        user: user.value.id,
+      }
+      const res = await axios.post(`/book/${id}/`, data);
+      showSnack('Event Booked Successfully', 'success');
+    }
+    catch (err) {
+      showSnack('Event Already booked', 'secondary');
+      console.log(err);
+    }
+  }
+
   async function reject(val, id) {
     try {
       const data = {
@@ -137,6 +229,34 @@ export const useAuthStore = defineStore('auth', () => {
       const res = await axios.patch(`/update-status/${id}/`,data);
       showSnack('Status change to Rejected', 'success');
       await getMyInvitations()
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function addFeedBack(val, id) {
+    try {
+      const data = {
+        content: val,
+        user:user.value.id,
+        event:id
+      }
+      const res = await axios.post(`/feedback`, data);
+      showSnack('Feedback added Successfully', 'success');
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function cancel(id) {
+    try {
+   
+      const res = await axios.delete(`/invitation/${id}/`);
+      showSnack('Booking Cancel Successfully', 'success');
+      await getMyInvitations()
+      
     }
     catch (err) {
       console.log(err);
@@ -225,5 +345,19 @@ export const useAuthStore = defineStore('auth', () => {
  
    }
 
-  return { state, guests, search,accept,reject, invitations,getMyInvitations,getEventInvitations, login, isLoggedIn, signup, Delete ,getUser,snackbar,text,color,showSnack,getEvents,events,user,getUsers,getCatering,users,catering,saveEvent}
+  async function editEvent(data) {
+    try {
+
+      const res = await axios.put(`/event/${sEvent.value}/`, data);
+     
+      showSnack('Event Saved Successfully', 'success');
+      router.push('/');
+    }
+    catch (err) {
+      showSnack(err, 'error');
+    }
+
+  }
+
+  return { state, guests, reset, forget, editEvent, sEvent, getEvent, invite, testimonials, getTestimonials, addFeedBack, book, cancel, getAllEvents, search,accept,reject, invitations,getMyInvitations,getEventInvitations, login, isLoggedIn, signup, Delete ,getUser,snackbar,text,color,showSnack,getEvents,events,user,getUsers,getCatering,users,catering,saveEvent}
 })

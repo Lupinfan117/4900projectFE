@@ -7,13 +7,16 @@ import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@/assets/images/pages/auth-v1-tree.png'
 import {useAuthStore} from '../store/auth';
-import {  useRouter } from 'vue-router'
+import {  useRouter,useRoute } from 'vue-router'
+import { onMounted } from 'vue'
 
 const auth = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 const form = ref({
-  email: '',
+  code: '',
   password: '',
+  uid:'',
 })
 const vuetifyTheme = useTheme()
 const authThemeMask = computed(() => {
@@ -21,8 +24,14 @@ const authThemeMask = computed(() => {
 })
 const isPasswordVisible = ref(false)
 
-const login = async () =>{
-  await auth.login(form.value.email,form.value.password);
+onMounted(() =>{
+    form.value.code = route.query.code;
+    form.value.uid = route.query.uid;
+    console.log(form.value.uid,' adwda ',form.value.code);
+})
+
+const reset = async () =>{
+  await auth.reset(form.value.code,form.value.password,form.value.uid);
 }
 </script>
 
@@ -41,24 +50,17 @@ const login = async () =>{
 
       <VCardText class="pt-2">
         <h5 class="text-h5 font-weight-semibold mb-1">
-          Welcome to Party Pro! 👋🏻
+          Reset Password 👋🏻
         </h5>
         <p class="mb-0">
-          Please sign-in to your account and start the adventure
+          Please enter your new password
         </p>
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="login">
+        <VForm @submit.prevent="reset">
           <VRow>
-            <!-- email -->
-            <VCol cols="12">
-              <VTextField
-                v-model="form.email"
-                label="Username"
-                type="text"
-              />
-            </VCol>
+           
 
             <!-- password -->
             <VCol cols="12">
@@ -73,15 +75,15 @@ const login = async () =>{
 
               </div>
 
-              <!-- login button -->
+             
               <VBtn
                 block
                 type="submit"
               >
-                Login
+                Reset
               </VBtn>
             </VCol>
-            
+
             <!-- create account -->
             <VCol
               cols="12"
@@ -93,24 +95,8 @@ const login = async () =>{
                 :to="{ name: 'register' }"
               >
                 Create an account
-              </RouterLink> 
-            </VCol>
-
-            <VCol
-              cols="12"
-              class="text-center text-base"
-            >
-              <span>Trouble remembering password?</span>
-              <RouterLink
-                class="text-primary ms-2"
-                :to="{ name: 'forget' }"
-              >
-              Forgot Password?
               </RouterLink>
             </VCol>
-
-
-
           </VRow>
         </VForm>
       </VCardText>

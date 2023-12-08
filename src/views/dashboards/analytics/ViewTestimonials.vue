@@ -152,78 +152,26 @@ const getStatus = dateString => {
             >
               <VList>
                 <!-- 👉 User Avatar & Name -->
+                
+                
+
                 <VListItem
-                  @click="details(row)"
+                  @click="testimonial(row.id)"
                   style="cursor: pointer"
                 >
-                  <VListItemTitle class="font-weight-semibold text-sm"> View Details </VListItemTitle>
-                </VListItem>
-                <VListItem
-                  @click="edit(row.id)"
-                  style="cursor: pointer"
-                >
-                  <VListItemTitle class="font-weight-semibold text-sm"> Edit </VListItemTitle>
+                  <VListItemTitle class="font-weight-semibold text-sm"> View Testimonial </VListItemTitle>
                 </VListItem>
 
                
 
-                
-
-                <VDivider class="my-1" />
-                <VListItem
-                  @click="Delete(row.id)"
-                  style="cursor: pointer"
-                >
-                  <VListItemTitle class="font-weight-semibold text-sm text-error"> Delete </VListItemTitle>
-                </VListItem>
+               
               </VList>
             </VMenu>
           </td>
         </tr>
       </tbody>
     </VTable>
-    <v-dialog v-model="isInvite" width="500">
-
-    <v-card title="Send Invite">
-      <div class="pb-3 px-5">
-        
-      <v-autocomplete
-          v-model="guests"
-          label="RSVP"
-          multiple
-          v-if="store.users"
-          item-title="username"
-          item-value="id"
-          :items="store.guests"
-        />
-        <template v-if="guests.length>0">
-          <div class="mt-3">Selected Guests</div>
-          <div class="d-flex items-center">
-            <v-chip class="mt-3 ml-3" v-for="(item,idx) in store.guests.filter(x => guests.includes(x.id))" :key="idx">{{ item.username }}</v-chip>
-          </div>
-        </template>
-        </div>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-
-        <VBtn
-          
-          @click="invite()"
-        >
-          Send Invite
-        </VBtn>
-        <VBtn
-          color="secondary"
-          type="reset"
-          variant="tonal"
-          @click="isInvite=false;guests=[]"
-        >
-          Close
-        </VBtn>
-      </v-card-actions>
-    </v-card>
-  
-</v-dialog>
+    
     <v-dialog v-model="isTestimonial" width="500">
   
 

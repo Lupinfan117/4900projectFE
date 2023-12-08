@@ -152,30 +152,18 @@ const getStatus = dateString => {
             >
               <VList>
                 <!-- 👉 User Avatar & Name -->
-                <VListItem
-                  @click="details(row)"
-                  style="cursor: pointer"
-                >
-                  <VListItemTitle class="font-weight-semibold text-sm"> View Details </VListItemTitle>
-                </VListItem>
-                <VListItem
-                  @click="edit(row.id)"
-                  style="cursor: pointer"
-                >
-                  <VListItemTitle class="font-weight-semibold text-sm"> Edit </VListItemTitle>
-                </VListItem>
-
-               
+                
 
                 
 
-                <VDivider class="my-1" />
                 <VListItem
-                  @click="Delete(row.id)"
+                  @click="openInvite(row.id)"
                   style="cursor: pointer"
                 >
-                  <VListItemTitle class="font-weight-semibold text-sm text-error"> Delete </VListItemTitle>
+                  <VListItemTitle class="font-weight-semibold text-sm"> Send Invite</VListItemTitle>
                 </VListItem>
+
+                
               </VList>
             </VMenu>
           </td>
@@ -224,37 +212,7 @@ const getStatus = dateString => {
     </v-card>
   
 </v-dialog>
-    <v-dialog v-model="isTestimonial" width="500">
-  
-
-
-    <v-card title="Testimonials">
-      <template v-if="store.testimonials">
-
-        <v-card-text  v-for="(item,idx) in store.testimonials" :key="idx" class="mb-5 mx-5 pa-2" style="border: 1px solid gray;border-radius: 8px;">
-          <div style="font-weight: bold;">{{ item.user.username }}</div>
-          <div class="text-sm">{{item.content}}</div>
-          <div class="text-sm">Data {{ formattedDate(item.created_at) }}</div>
-        </v-card-text>
-      </template>
-      <div v-else class="mx-5">No Testimonials</div>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-
-       
-        <VBtn
-          color="secondary"
-          type="reset"
-          variant="tonal"
-          @click="isTestimonial=false"
-        >
-          Close
-        </VBtn>
-      </v-card-actions>
-    </v-card>
-  
-</v-dialog>
+    
     <v-dialog
       v-model="active"
       width="500"
@@ -411,7 +369,6 @@ const getStatus = dateString => {
               </VExpandTransition>
             </VCol>
 
-            <!-- 👉 Apple iPhone 11 Pro -->
           </VRow>
 
           <v-card-actions>

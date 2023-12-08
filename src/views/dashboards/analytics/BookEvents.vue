@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import {API_URL} from '@/@layouts/utils'
 
 import {useAuthStore} from '@/store/auth';
@@ -20,18 +20,21 @@ onMounted(() =>{
     store.getMyInvitations()
 })
 
-const invitations = computed(() => store.invitations?.filter(x => x.invite_status != 'Booked') || [])
-
  
 
 const event = ref('');
+const fd = ref('');
 const active = ref(false);
+const isFd = ref(false);
+const selectedEvent = ref(null);
 const isCatering = ref(true);
 
 const details = (id) =>{
   event.value = id
   active.value = true;
 }
+
+const bookedEvents = computed(() => store.invitations?.filter(x => x.invite_status == 'Booked') || [])
 
 const formattedDate = (x) => {
       const date = new Date(x);
@@ -52,8 +55,23 @@ const formattedDate = (x) => {
      await store.accept('Accepted',id);
     }
 
-    const reject = async (id) =>{
-     await store.reject('Rejected',id);
+    const cancel = async (id) =>{
+     await store.cancel(id);
+    }
+
+     const feedback = async (id) =>{
+        isFd.value = true;
+        selectedEvent.value = id;
+    //  await store.cancel(id);
+    }
+
+     const addFeedBack = async () =>{
+        if(fd){
+             await store.addFeedBack(fd.value,selectedEvent.value);
+            isFd.value = false;
+
+        }
+    
     }
 
 </script>
@@ -81,7 +99,7 @@ const formattedDate = (x) => {
 
       <tbody>
         <tr
-          v-for="row in invitations"
+          v-for="row in bookedEvents"
           :key="row.id"
         >
           <!-- name -->
@@ -128,22 +146,22 @@ const formattedDate = (x) => {
           </VListItem>
 
           <VDivider class="my-1" />
-          <template v-if="row.invite_status == 'Pending'">
+         
 
-          
-          <VListItem @click="accept(row.id)" style="cursor: pointer;">
+          <VListItem @click="feedback(row.event.id)" style="cursor: pointer;">
 
-            <VListItemTitle  class="font-weight-semibold text-sm text-success">
-              Accept Invitation
+            <VListItemTitle  class="font-weight-semibold text-sm ">
+              Add FeedBack
             </VListItemTitle>
           </VListItem>
-          <VListItem @click="reject(row.id)" style="cursor: pointer;">
+          
+          <VListItem @click="cancel(row.id)" style="cursor: pointer;">
 
             <VListItemTitle  class="font-weight-semibold text-sm text-error">
-              Reject Invitation
+              Cancel Event
             </VListItemTitle>
           </VListItem>
-          </template>
+      
           </VList>
           </VMenu>
             
@@ -151,6 +169,38 @@ const formattedDate = (x) => {
         </tr>
       </tbody>
     </VTable>
+    <v-dialog v-model="isFd" width="500">
+  
+
+
+    <v-card title="Add Feedback">
+      <v-card-text>
+       <v-textarea label="Feedback" v-model="fd"></v-textarea>
+      </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+
+        <VBtn
+          
+          class="me-2"
+          @click="addFeedBack()"
+        >
+
+          Submit
+        </VBtn>
+        <VBtn
+          color="secondary"
+          type="reset"
+          variant="tonal"
+          @click="selectedEvent=null;fd='';isFd=false"
+        >
+          Cancel
+        </VBtn>
+      </v-card-actions>
+    </v-card>
+  
+</v-dialog>
     <v-dialog v-model="active" width="500">
 
   <template v-slot:default>
