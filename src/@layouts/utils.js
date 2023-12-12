@@ -34,4 +34,4 @@ export const hexToRgb = hex => {
 }
 
 
-export const API_URL = "https://parker2252.pythonanywhere.com/";
+export const API_URL = "http://127.0.0.1:8000";
